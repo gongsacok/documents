@@ -2,7 +2,7 @@
 
 #### 사용자
 
-##### 사용자 가입
+##### 사용자 가입 (사용자추가)
 
 - 기능
 
@@ -26,12 +26,10 @@
   ``` json
   {
       "status": "success",
-      "emsg": null,
-      "data": "",
-      "page": null
+      "data": ""
   }
   ```
-
+  
 - 상세설명 및 주의사항
 
   - 사용자를 추가한다.
@@ -62,21 +60,71 @@
   ``` json
   {
       "status": "success",
-      "emsg": null,
       "data": {
           "uid": 3,
           "userid": "testuser",
           "jtoken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0dXNlciIsInJvbGVzIjoiUk9MRV9VU0VSLFJPTEVfQURNSU4iLCJpYXQiOjE2NTcyNTgwODgsImV4cCI6MTY1NzM0NDQ4OH0.V_fPsGNj6ebAbaIpSPGm638_3W6vfV5H3SeWH0dd-KY",
           "userrole": "ROLE_USER,ROLE_ADMIN"
-      },
-      "page": null
+      }
+  }
+  ```
+  
+- 상세설명 및 주의사항
+
+  - 로그인 이후 api 통신을 위하여 jtoken을 사용한다.
+  - 토큰의 유효기간은 1일이다.
+
+
+
+##### 사용자 리스트 조회
+
+- 기능
+
+  - 등록된 사용자의 리스트를 가지고 온다.
+
+- 주소
+
+  - http://devback.gongsacok.com:8080/admin/listUser
+
+- 요청예
+
+  ``` json
+  {
+      "offset":0,
+      "size":2
+  }
+  ```
+
+- 응답예
+
+  ``` json
+  {
+      "status": "success",
+      "data": [
+          {
+              "uid": 9,
+              "userid": "aa",
+              "userrole": "ROLE_USER",
+              "createTime": "2022-07-09T05:19:51.451155",
+              "updateTime": "2022-07-09T05:19:51.451169"
+          },
+          {
+              "uid": 8,
+            	......................
+          }
+      ],
+      "page": {
+          "totalElements": 7,
+          "totalPages": 3
+      }
   }
   ```
 
 - 상세설명 및 주의사항
 
-  - 로그인 이후 api 통신을 위하여 jtoken을 사용한다.
-  - 토큰의 유효기간은 1일이다.
+  - 헤더의 인증 토큰을 포함하여 통신한다.
+  - 시작위치(페이지X한페이지의 크기 : offset) 와 한페이지의 크기(size)을 전송한다.
+  - 리스트 반환시 조건에 맞는 전체 레코드의 갯수(totalElements)와 전송된 사이즈를 이용한 전체 페이지(totalPages) 값을 리턴한다.
 
 
 
@@ -103,12 +151,10 @@
   ``` json
   {
       "status": "success",
-      "emsg": null,
-      "data": "user detail info written",
-      "page": null
+      "data": "user detail info written"
   }
   ```
-
+  
 - 상세설명 및 주의사항
 
   - 헤더의 인증 토큰을 포함하여 통신한다.
@@ -138,89 +184,23 @@
   ``` json
   {
       "status": "success",
-      "emsg": null,
       "data": {
-          "udid": null,
-          "name": "test name!",
-          "ruid": null,
-          "useFlag": null,
-          "createTime": null,
-          "updateTime": null
-      },
-      "page": null
+          "name": "test name!"
+      }
   }
   ```
-
+  
 - 상세설명 및 주의사항
 
   - 헤더의 인증 토큰을 포함하여 통신한다.
   - 로그인 한 유저의 상세정보를 가져온다.
   - 보내는 테이터는 Null 이 아닌 빈 json 파일이다.
 
-##### 사용자 리스트 가져오기
-
-- 기능
-
-  - 등록된 사용자의 리스트를 가지고 온다.
-
-- 주소
-
-  - http://devback.gongsacok.com:8080/admin/listUser
-
-- 요청예
-
-  ``` json
-  {
-      "offset":0,
-      "size":2
-  }
-  ```
-
-- 응답예
-
-  ``` json
-  {
-      "status": "success",
-      "emsg": null,
-      "data": [
-          {
-              "uid": 9,
-              "userid": "aa",
-              "passwd": null,
-              "jtoken": null,
-              "userrole": "ROLE_USER",
-              "createTime": "2022-07-09T05:19:51.451155",
-              "updateTime": "2022-07-09T05:19:51.451169",
-              "udid": null,
-              "name": null,
-              "ruid": null,
-              "useFlag": null,
-              "udcreateTime": null,
-              "udupdateTime": null
-          },
-          {
-              "uid": 8,
-            	......................
-          }
-      ],
-      "page": {
-          "totalElements": 7,
-          "totalPages": 3
-      }
-  }
-  ```
-
-- 상세설명 및 주의사항
-
-  - 헤더의 인증 토큰을 포함하여 통신한다.
-  - 시작위치(페이지X한페이지의 크기 : offset) 와 한페이지의 크기(size)을 전송한다.
-  - 리스트 반환시 조건에 맞는 전체 레코드의 갯수(totalElements)와 전송된 사이즈를 이용한 전체 페이지(totalPages) 값을 리턴한다.
-
 
 
 #### 사업자
 
-##### 사업자 정보 추가
+##### 사업자 정보 추가 (관리자)
 
 - 기능
 
@@ -244,15 +224,12 @@
   ``` json
   {
       "status": "success",
-      "emsg": null,
       "data": {
           "cid": 4,
           "name": "company 04",
-          "ruid": null,
           "createTime": "2022-07-12T15:49:06.144463",
           "updateTime": "2022-07-12T15:49:06.144498"
-      },
-      "page": null
+      }
   }
   ```
 
@@ -260,6 +237,196 @@
 
   - 관리자가 사업자 정보를 추가한다.
   - 입력된 데이터가 응답으로 리턴된다. 이를 이용하여 (cid) 사업자 상세정보 입력 api 를 이용할 수 있다.
+
+
+
+##### 사업자 리스트 조회 (관리자)
+
+- 기능
+
+  - 관리자가 사업체의 리스트를 조회한다.
+  - 사업체의 상세정보는 등록한 업체의 아이디 값을 이용하여 별도의 api 를 이용하여 등록,수정한다.
+
+- 주소
+
+  - http://devback.gongsacok.com:8080/admin/listCompany
+
+- 요청예
+
+  ``` json
+  {
+      "offset":0,
+      "size":2
+  }
+  ```
+
+- 응답예
+
+  ``` json
+  {
+      "status": "success",
+      "data": [
+          {
+              "cid": 5,
+              "name": "company 05",
+              "createTime": "2022-07-12T07:50:22.116937",
+              "updateTime": "2022-07-12T07:50:22.116944"
+          },
+          {
+              "cid": 4,
+              "name": "company 04",
+              ......................
+          }
+      ],
+      "page": {
+          "totalElements": 5,
+          "totalPages": 2
+      }
+  }
+  ```
+
+- 상세설명 및 주의사항
+
+  - 시작위치(페이지X한페이지의 크기 : offset) 와 한페이지의 크기(size)을 전송한다.
+  - 리스트 반환시 조건에 맞는 전체 레코드의 갯수(totalElements)와 전송된 사이즈를 이용한 전체 페이지(totalPages) 값을 리턴한다.
+
+
+
+##### 사업자 상세정보 업데이트 (관리자)
+
+- 기능
+
+  - 등록한 사업자의 상세 정보를 추가한다.
+  - 등록한 사업자의 아이디(cid)를 이용하여 상세정보를 입력한다.
+
+- 주소
+
+  - http://devback.gongsacok.com:8080/admin/setCompanyDetailInfo
+
+- 요청예
+
+  ``` json
+  {
+      "rcid":1,
+      "name":"test company 01",
+      "comment":"사업자 간단 소개",
+      "location":"신정동",
+      "address":"서울시 양천구 사업장 주소",
+      "registration":"01-30331-12345",
+      "workTime":"09:00 ~ 18:00",
+      "offer":"우리 회사의 제공 서비스 소개글은 어쩌구 저쩌구 이며\n 어쩌구 저쩌구 한 내용으로 어쩌고 저쩌고 한다.",
+      "titleImg":1,
+      "imgs":"1,3,4,5",
+      "longitude":135084848,
+      "latitude":382384233,
+      "telnum":"02-1234-1234",
+      "mobilenum":"010-1234-1234",
+    	"email":"test@email.com",
+    	"extnum":"080-1234-1234",
+      "keywords":"내부분류 01",
+      "tags":"테스트분류01,테스트분류02,테스트",
+      "useFlag":1
+  }
+  ```
+
+- 응답예
+
+  ``` json
+  {
+      "status": "success",
+      "data": {
+          "cdid": 1,
+          "name": "test company 01",
+          "comment": "사업자 간단 소개",
+          "location": "신정동",
+          "address": "서울시 양천구 사업장 주소",
+          "registration": "01-30331-12345",
+          "workTime": "09:00 ~ 18:00",
+          "offer": "우리 회사의 제공 서비스 소개글은 어쩌구 저쩌구 이며\n 어쩌구 저쩌구 한 내용으로 어쩌고 저쩌고 한다.",
+          "titleImg": 1,
+          "imgs": "1,3,4,5",
+          "longitude": 13508484,
+          "latitude": 3823842,
+          "telnum":"02-1234-1234",
+          "mobilenum":"010-1234-1234",
+          "email":"test@email.com",
+          "extnum":"080-1234-1234",
+          "keywords": "내부분류 01",
+          "tags": "테스트분류01,테스트분류02,테스트",
+          "useFlag": 1,
+          "rcid": 1,
+          "createTime": "2022-07-19T13:23:48.101372",
+          "updateTime": "2022-07-19T13:23:48.101419"
+      }
+  }
+  ```
+
+- 상세설명 및 주의사항
+
+  - 상세 정보를 입력하고자 하는 id를 먼저 가져와서 해당 아이디를 rcid 값에 설정하고 상세정보를 입력한다.
+  - 이름 항목은 사업자 정보와 다름에 주의한다.
+  - 타이틀이미지(titleImg)는 이미지의 번호를 이용한다.
+  - 여러개의 이미지(imgs)는 쉼표로 구분된 번호의 리스트를 사용한다.
+  - 이미지의 번호 (이미지 아이디)는 이미지 업로드 후 반환된다.
+  - 경도(longitude)와 위도(latitude)는 소수점 다섯자리까지 정수형태( * 100000) 로 이용한다.
+
+
+
+
+##### 사업자 상세정보 조회 (관리자)
+
+- 기능
+
+  - 사업자의 상세정보를 조회한다.
+  - 사업자 아이디 번호를 이용하여 해당 상세정보를 지정한다.
+
+- 주소
+
+  - http://devback.gongsacok.com:8080/admin/getCompanyDetailInfo
+
+- 요청예
+
+  ``` json
+  {
+      "rcid":1
+  }
+  ```
+
+- 응답예
+
+  ``` json
+  {
+      "status": "success",
+      "data": {
+          "cdid": 1,
+          "name": "test company 01",
+          "comment": "사업자 간단 소개",
+          "location": "신정동",
+          "address": "서울시 양천구 사업장 주소",
+          "registration": "01-12345678-12345",
+          "workTime": "09:00 ~ 18:00",
+          "offer": "우리 회사의 제공 서비스 소개글은 어쩌구 저쩌구 이며\n 어쩌구 저쩌구 한 내용으로 어쩌고 저쩌고 한다. 그래서 좋은 회사다.",
+          "titleImg": 1,
+          "imgs": "1,3,4,5,11",
+          "longitude": 135084848,
+          "latitude": 382384233,
+          "telnum": "02-1234-1234",
+          "mobilenum": "010-1234-1234",
+          "email": "test@email.com",
+          "extnum": "080-1234-1234",
+          "keywords": "내부분류 01",
+          "tags": "테스트분류01,테스트분류02,테스트",
+          "useFlag": 1,
+          "rcid": 1,
+          "createTime": "2022-07-19T16:11:41.011005",
+          "updateTime": "2022-07-19T16:11:41.011028"
+      }
+  }
+  ```
+
+- 상세설명 및 주의사항
+
+  - 각 항목은 상세정보 업데이트 항목을 참고 하도록 한다.
 
 
 
