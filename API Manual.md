@@ -431,6 +431,91 @@
 
 
 
+#### 이미지
+
+##### 이미지 업로드
+
+- 기능
+
+  - 일반적인 form-data 전송모드를 이용하여 이미지 한장 또는 여러장을 업로드 한다.
+
+- 주소
+
+  - http://devback.gongsacok.com:8080/svc/upImages
+
+- 요청예
+
+  ``` json
+  form name = "imgs"
+  ```
+
+- 응답예
+
+  ``` json
+  {
+      "status": "success",
+      "data": [
+          {
+              "iid": 9,
+              "storagePath": "https://gongsacok-dev.s3.ap-northeast-2.amazonaws.com/1658314185_KakaoTalk_Photo_2022-06-10-12-38-12.jpeg"
+          },
+          {
+              "iid": 10,
+              "storagePath": "https://gongsacok-dev.s3.ap-northeast-2.amazonaws.com/1658314185_photo-1554469384-e58fac16e23a.jpeg"
+          }
+      ]
+  }
+  ```
+
+- 상세설명 및 주의사항
+
+  - 업로드 된 이미지의 저장소 url을 storagePath 변수를 이용해 리턴한다.
+  - 이미지의 iid를 리턴한다.
+  - 저장된 이미지를 다시 가져오는 경우 리턴된 iid 를 이용하여, 이미지 url을 조회할 수 있다.
+
+
+
+##### 이미지 url 조회
+
+- 기능
+
+  - 저장된 이미지를 이미지 아이디를 이용하여 url을 가져온다.
+
+- 주소
+
+- 요청예
+
+  ``` json
+  {
+      "imgs":"5,9,990"
+  }
+  ```
+
+- 응답예
+
+  ``` json
+  {
+      "status": "success",
+      "data": [
+          {
+              "iid": 5,
+              "storagePath": "https://gongsacok-dev.s3.ap-northeast-2.amazonaws.com/1658313764_KakaoTalk_Photo_2022-06-10-12-38-12.jpeg"
+          },
+          {
+              "iid": 9,
+              "storagePath": "https://gongsacok-dev.s3.ap-northeast-2.amazonaws.com/1658314185_KakaoTalk_Photo_2022-06-10-12-38-12.jpeg"
+          }
+      ]
+  }
+  ```
+
+- 상세설명 및 주의사항
+
+  - 이미지 아이디 여러개 또는 한개를 보낼수 있다.
+  - 여러개의 이미지를 요청하는 경우 중간에 없는 아이디가 있더라도, 결과가 있다면, 리턴함.
+
+
+
 #### Api 문서형태
 
 - 기능
